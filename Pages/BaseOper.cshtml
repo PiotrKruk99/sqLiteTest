@@ -12,13 +12,19 @@
     <label>Surname:</label><input asp-for="Person.Surname"><br>
     <label>Age:</label><input asp-for="Person.Age"><br>
     <button type="submit">Add</button>
+    <button type="submit" asp-page-handler="Modify" name="personId" value="@Model.Person.PersonId">Modify</button>
 </form>
 <hr>
 @foreach (Person person in Model.Persons)
 {
     <ul>
-        <li>Name: @person.Name</li>
-        <li>Surname: @person.Surname</li>
-        <li>Age: @person.Age</li>
-    </ul>
+    <li>Name: @person.Name</li>
+    <li>Surname: @person.Surname</li>
+    <li>Age: @person.Age
+        <form method="post">
+            <button type="submit" asp-page-handler="Delete" name="personId" value="@person.PersonId">Delete</button>
+            <button type="submit" asp-page-handler="Edit" name="personId" value="@person.PersonId">Edit</button>
+        </form>
+    </li>
+</ul>
 }

@@ -33,6 +33,38 @@ public class BaseOperModel : PageModel
         return RedirectToPage("./BaseOper");
     }
 
+    public async Task<IActionResult> OnPostDeleteAsync()
+    {
+        var personId = Convert.ToInt32(Request.Form["personId"]);
+        _context.Remove<Person>(_context.Persons.First<Person>(x => x.PersonId == personId));
+        await _context.SaveChangesAsync();
+
+        return RedirectToPage("./BaseOper");
+    }
+
+    public void OnPostEdit()
+    {
+        var personId = Convert.ToInt32(Request.Form["personId"]);
+        Person = _context.Persons.First<Person>(x => x.PersonId == personId);
+
+        Persons = _context.Persons.ToList<Person>();
+    }
+
+    public async Task<IActionResult> OnPostModifyAsync()
+    {
+        if (!ModelState.IsValid)
+        {
+            return Page();
+        }
+
+        var personId = Convert.ToInt32(Request.Form["personId"]);
+        Person.PersonId = personId;
+        _context.Persons.Update(Person);
+        await _context.SaveChangesAsync();
+
+        return RedirectToPage("./BaseOper");
+    }
+
     public void OnGet()
     {
         Persons = _context.Persons.ToList<Person>();

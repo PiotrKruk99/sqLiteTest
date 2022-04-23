@@ -10,10 +10,7 @@ public class DataContext : DbContext
 
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
-        // var folder = Environment.SpecialFolder.LocalApplicationData;
-        // var path = Environment.GetFolderPath(folder);
         DbPath = "Data/base.db";
-        //DbPath = System.IO.Path.Join(path, "base.db");
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
